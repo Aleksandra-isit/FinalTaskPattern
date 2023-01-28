@@ -1,27 +1,27 @@
 package realization.model;
 
-public class Note implements Observable{
+public class Anecdote implements Observable{
     private String id = "";
     private String heading;
     private String text;
     private Observer o;
 
-    public Note(String heading, String text) {
-        this.heading = heading;
-        this.text = text;
-    }
-
-    public Note(String id, String heading, String text) {
-        this.id = id;
-        this.heading = heading;
-        this.text = text;
-    }
-
-    public Note(String id, String heading, String text, Observer o) {
+    public Anecdote(String id, String heading, String text, Observer o) {
         this.id = id;
         this.heading = heading;
         this.text = text;
         this.o = o;
+    }
+
+    public Anecdote(String id, String heading, String text) {
+        this.id = id;
+        this.heading = heading;
+        this.text = text;
+    }
+
+    public Anecdote(String heading, String text) {
+        this.heading = heading;
+        this.text = text;
     }
 
     public String getId() {
@@ -49,13 +49,13 @@ public class Note implements Observable{
     }
 
     @Override
-    public String toString() {
-        return String.format("Идентификатор - %s\nЗаголовок - %s\nТекст записки - %s\n", id, heading, text);
+    public void show(Observer o, String rate) {
+        o.Importance("Для поднятие настроения. Степень важности - низкая.");
+        System.out.println(toString());
     }
 
     @Override
-    public void show(Observer o, String rate) {
-        o.Importance(rate);
-        System.out.println(toString());
+    public String toString() {
+        return String.format("Идентификатор - %s\nНазвание анектода - %s\nАнектод: - %s\n", id, heading, text);
     }
 }

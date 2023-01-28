@@ -12,8 +12,8 @@ public class RepositoryFile implements Repository{
     }
 
         @Override
-    public List<Note> getAllNotes() {
-        List<Note> notes = new ArrayList<>();
+    public List<Observable> getAllNotes() {
+        List<Observable> notes = new ArrayList<Observable>();
         List<String> dataFromFile = fileOperation.readAllLines();
             for (String line: dataFromFile) {
                 notes.add(mapper.map(line));
@@ -22,10 +22,10 @@ public class RepositoryFile implements Repository{
     }
 
     @Override
-    public String CreateNote(Note note) {
-        List<Note> notes = getAllNotes();
+    public String CreateNote(Observable note) {
+        List<Observable> notes = getAllNotes();
         int max = 0;
-        for (Note item : notes) {
+        for (Observable item : notes) {
             int id = Integer.parseInt(item.getId());
             if (max < id){
                 max = id;
@@ -39,18 +39,18 @@ public class RepositoryFile implements Repository{
         return id;
     }
 
-    private void writeDown(List<Note> notes) {
-        List<String> lines = new ArrayList<>();
-        for (Note item: notes) {
+    private void writeDown(List<Observable> notes) {
+        List<String> lines = new ArrayList<String>();
+        for (Observable item: notes) {
             lines.add(mapper.map(item));
         }
         fileOperation.saveAllLines(lines);
     }
 
     @Override
-    public void updateNote(Note note) {
-        List<Note> notes = getAllNotes();
-        Note tmpNote = notes.stream().filter(i -> i.getId().equals(note.getId())).findFirst().get();
+    public void updateNote(Observable note) {
+        List<Observable> notes = getAllNotes();
+        Observable tmpNote = notes.stream().filter(i -> i.getId().equals(note.getId())).findFirst().get();
         tmpNote.setHeading(note.getHeading());
         tmpNote.setText(note.getText());
         writeDown(notes);
@@ -58,7 +58,7 @@ public class RepositoryFile implements Repository{
 
     @Override
     public void deleteNote(String id) {
-        List<Note> notes = getAllNotes();
+        List<Observable> notes = getAllNotes();
         notes.removeIf(item -> item.getId().equals(id));
         writeDown(notes);
     }

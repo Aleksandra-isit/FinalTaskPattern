@@ -1,7 +1,7 @@
 package realization.model;
 
 public class NotesMapper {
-    public String map(Note user) {
+    public String map(Observable user) {
         return String.format("%s~%s~%s", user.getId(), user.getHeading(), user.getText());
     }
 
